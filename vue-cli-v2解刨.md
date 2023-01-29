@@ -219,3 +219,144 @@ function download (repo, dest, opts, fn) {
 下载完成之后，`spinner.stop()`关闭loading,然后开始`generate`生成了。
 
 ## generate
+```js
+const chalk = require('chalk')
+const Metalsmith = require('metalsmith') // 静态网页生成
+const Handlebars = require('handlebars') // 模板引擎
+const async = require('async')
+// 模板引擎的解析渲染器
+const render = require('consolidate').handlebars.render
+const path = require('path')
+// 多条件匹配
+const multimatch = require('multimatch')
+const getOptions = require('./options')
+const ask = require('./ask')
+const filter = require('./filter')
+const logger = require('./logger')
+
+// register handlebars helper
+Handlebars.registerHelper('if_eq', function (a, b, opts) {
+  return a === b
+    ? opts.fn(this)
+    : opts.inverse(this)
+})
+
+Handlebars.registerHelper('unless_eq', function (a, b, opts) {
+  return a === b
+    ? opts.inverse(this)
+    : opts.fn(this)
+})
+```
+在`generate.js`文件中，引入了很多的第三方的包，这里比较重要的是`metalsmith`主要是静态网页生成和`handlerbars`主要是模板引擎。还有一个是`require('consolidate').handlebars.render`作为模板引擎的解析渲染器。注册了两个渲染器
+
+下面主要看下`generate`的实现
+```js
+module.exports = function generate (name, src, dest, done) {
+  // 读取配置项入口
+  const opts = getOptions(name, src)
+  // metalsmith 初始化
+  const metalsmith = Metalsmith(path.join(src, 'template'))
+
+  // 配置项合并
+  const data = Object.assign(metalsmith.metadata(), {
+    destDirName: name,
+    inPlace: dest === process.cwd(),
+    noEscape: true
+  })
+  // 配置对象
+  opts.helpers && Object.keys(opts.helpers).map(key => {
+    Handlebars.registerHelper(key, opts.helpers[key])
+  })
+
+  const helpers = { chalk, logger }
+
+  // 调用before钩子
+  if (opts.metalsmith && typeof opts.metalsmith.before === 'function') {
+    opts.metalsmith.before(metalsmith, opts, helpers)
+  }
+
+  // 询问
+  metalsmith.use(askQuestions(opts.prompts))
+    // 配置过滤
+    .use(filterFiles(opts.filters))
+    // 渲染模板文件
+    .use(renderTemplateFiles(opts.skipInterpolation))
+
+  if (typeof opts.metalsmith === 'function') {
+    opts.metalsmith(metalsmith, opts, helpers)
+  } else if (opts.metalsmith && typeof opts.metalsmith.after === 'function') {
+    opts.metalsmith.after(metalsmith, opts, helpers)
+  }
+
+  metalsmith.clean(false)
+    .source('.') // start from template root instead of `./src` which is Metalsmith's default for `source`
+    .destination(dest)
+    .build((err, files) => {
+      done(err)
+      if (typeof opts.complete === 'function') {
+        const helpers = { chalk, logger, files }
+        opts.complete(data, helpers)
+      } else {
+        logMessage(opts.completeMessage, data)
+      }
+    })
+
+  return data
+}
+```
+首先通过`getOptions`读取配置项入口。
+```js
+module.exports = function options (name, dir) {
+  const opts = getMetadata(dir)
+
+  setDefault(opts, 'name', name)
+  setValidateName(opts)
+
+  const author = getGitUser()
+  if (author) {
+    setDefault(opts, 'author', author)
+  }
+
+  return opts
+}
+
+/**
+ * Gets the metadata from either a meta.json or meta.js file.
+ *
+ * @param  {String} dir
+ * @return {Object}
+ */
+
+function getMetadata (dir) {
+  const json = path.join(dir, 'meta.json')
+  const js = path.join(dir, 'meta.js')
+  let opts = {}
+
+  if (exists(json)) {
+    opts = metadata.sync(json)
+  } else if (exists(js)) {
+    const req = require(path.resolve(js))
+    if (req !== Object(req)) {
+      throw new Error('meta.js needs to expose an object')
+    }
+    opts = req
+  }
+
+  return opts
+}
+```
+通过`getMetadata`方法读取模板中的`meta.json`或者`meta.js`文件，然后把结果赋值给opts。然后对name的设置进行校验，接着对本地git作者信息进行合并，最终返回opts。
+
+执行完了`getOptions`之后，然后`metalsmith`初始化，要在初始化这个目录下面生成静态文件。对meta.json文件中的helpers进行注册渲染模板的数据。执行`before`钩子。然后通过对象的方式操作真实的模板，通过`askQuestions`来询问一些问题，过滤一些文件。
+
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d795d4eac10b40c48b86ff502dbbe61f~tplv-k3u1fbpfcp-watermark.image?)
+接着通过`opts.metalsmith`执行模板。最后执行构建，当生成完毕之后执行`complete`方法。
+
+以上就是`generate`的主要流程我们来简单的总结一下
+- 读取配置入口
+- metalsmith初始化
+- 配置项合并
+- 调用before钩子
+- 询问、配置过滤、渲染模板文件
+- build构建
+- 构建完成之后执行complete
