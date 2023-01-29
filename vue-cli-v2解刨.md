@@ -360,3 +360,5 @@ function getMetadata (dir) {
 - 询问、配置过滤、渲染模板文件
 - build构建
 - 构建完成之后执行complete
+
+[掘金](https://juejin.cn/post/7194003822224605244)
