@@ -343,3 +343,6 @@ function getSequence(arr: number[]): number[] {
   return result
 }
 ```
+
+
+[掘金](https://juejin.cn/post/7197676871634255927)

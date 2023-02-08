@@ -284,3 +284,4 @@ while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
 
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1e286de3c19546ba8198ebbc65595fda~tplv-k3u1fbpfcp-watermark.image?)
 
+[掘金](https://juejin.cn/post/7197229913158107192)
