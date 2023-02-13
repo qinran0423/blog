@@ -5,7 +5,7 @@ export default {
         nav: [
             { text: '首页', link: '/' },
             { 
-                text: 'Mick 博客', 
+                text: 'Mick Blog', 
                 items: [
                     { text: 'Github', link: 'https://github.com/qinran0423' },
                     { text: '掘金', link: 'https://juejin.cn/user/2972688068406429/posts' }
