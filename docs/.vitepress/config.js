@@ -1,5 +1,5 @@
 export default {
-	title: 'Mick Blog',
+	title: 'Mick\'s Blog',
 	description: 'Just playing around.',
 	themeConfig: {
         nav: [
