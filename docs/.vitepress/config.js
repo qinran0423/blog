@@ -1,4 +1,5 @@
 export default {
+	base: '/blog/',
 	title: 'Mick\'s Blog',
 	description: 'Just playing around.',
 	themeConfig: {
