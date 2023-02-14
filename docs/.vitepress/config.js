@@ -17,6 +17,7 @@ export default {
 			{
 				text: 'HTML',
 				link: '/',
+				collapsed: true,
 				items: [
 					{text: 'html主要题目', link: '/html/'}
 				]
@@ -24,6 +25,7 @@ export default {
 			{
 				text: 'JavaScript',
 				link: '/',
+				collapsed: true,
 				items: [
 					{text: '继承', link: '/js/继承'},
 					{text: '手写call、apply、bind', link: '/js/手写call、apply、bind'},
@@ -34,6 +36,7 @@ export default {
 			{
 				text: 'Vue',
 				link: '/',
+				collapsed: true,
 				items: [
 					{text: 'new vue 都干了啥？', link: '/vue/new vue 都干了啥？'},
 					{text: 'vue-cli-v2解刨', link: '/vue/vue-cli-v2解刨'},
@@ -45,6 +48,7 @@ export default {
 			{
 				text: 'other',
 				link: '/',
+				collapsed: true,
 				items: [
 					{text: '用Vitepress + Github Pages 搭建自己的个人博客', link: '/other/create-blog'},
 				]
