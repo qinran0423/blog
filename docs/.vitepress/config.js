@@ -42,7 +42,13 @@ export default {
 					{text: 'Vue3快速diff算法', link: '/vue/Vue3快速diff算法'}
 				]
 			},
-
+			{
+				text: 'other',
+				link: '/',
+				items: [
+					{text: '用Vitepress + Github Pages 搭建自己的个人博客', link: '/other/create-blog'},
+				]
+			},
 		]
     }
   }
