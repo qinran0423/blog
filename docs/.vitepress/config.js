@@ -23,6 +23,15 @@ export default {
 				]
 			},
 			{
+				text: 'CSS',
+				link: '/',
+				collapsed: true,
+				items: [
+					{text: 'Context', link: '/css/index'},
+					{text: '面试题', link: '/css/面试题'}
+				]
+			},
+			{
 				text: 'JavaScript',
 				link: '/',
 				collapsed: true,
