@@ -28,7 +28,8 @@ export default {
 				collapsed: true,
 				items: [
 					{text: 'Context', link: '/css/index'},
-					{text: '面试题', link: '/css/面试题'}
+					{text: '面试题', link: '/css/面试题'},
+					{text: '布局问题', link: '/css/布局问题'}
 				]
 			},
 			{
