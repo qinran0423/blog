@@ -24,7 +24,7 @@ export default {
 			},
 			{
 				text: 'CSS',
-				link: '/',
+				link: '/css/index',
 				collapsed: true,
 				items: [
 					{text: 'Context', link: '/css/index'},
@@ -34,7 +34,7 @@ export default {
 			},
 			{
 				text: 'JavaScript',
-				link: '/',
+				link: '/js/继承',
 				collapsed: true,
 				items: [
 					{text: '继承', link: '/js/继承'},
@@ -45,7 +45,7 @@ export default {
 			},
 			{
 				text: 'Vue',
-				link: '/',
+				link: '/vue/new vue 都干了啥？',
 				collapsed: true,
 				items: [
 					{text: 'new vue 都干了啥？', link: '/vue/new vue 都干了啥？'},
@@ -56,8 +56,17 @@ export default {
 				]
 			},
 			{
-				text: 'other',
+				text: "网络协议",
 				link: '/',
+				collapsed: true,
+				items: [
+					{text: 'HTTP协议', link: '/网络协议/HTTP协议'},
+					{text: 'TCP、IP', link: '/网络协议/TCP、IP'},
+				]
+			},
+			{
+				text: 'other',
+				link: '/other/create-blog',
 				collapsed: true,
 				items: [
 					{text: '用Vitepress + Github Pages 搭建自己的个人博客', link: '/other/create-blog'},
