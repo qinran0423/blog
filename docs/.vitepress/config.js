@@ -62,6 +62,7 @@ export default {
 				items: [
 					{text: 'HTTP协议', link: '/网络协议/HTTP协议'},
 					{text: 'TCP、IP', link: '/网络协议/TCP、IP'},
+					{text: 'options请求', link: '/网络协议/options请求'}
 				]
 			},
 			{
