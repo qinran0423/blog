@@ -66,6 +66,14 @@ export default {
 				]
 			},
 			{
+				text: "算法",
+				link: '/',
+				collapsed: true,
+				items: [
+					{text: '二分查找', link: '/算法/二分查找'}
+				]	
+			},
+			{
 				text: 'other',
 				link: '/other/create-blog',
 				collapsed: true,
