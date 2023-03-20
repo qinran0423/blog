@@ -70,7 +70,9 @@ export default {
 				link: '/',
 				collapsed: true,
 				items: [
-					{text: '二分查找', link: '/算法/二分查找'}
+					{text: '二分查找', link: '/算法/二分查找'},
+					{text:'leetcode622-设计循环队列', link: '/算法/leetcode622-设计循环队列'},
+					{text:'leetcode641-设计循环双端队列', link: '/算法/leetcode641-设计循环双端队列'}
 				]	
 			},
 			{
