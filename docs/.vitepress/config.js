@@ -56,6 +56,15 @@ export default {
 				]
 			},
 			{
+				text: 'React',
+				link: '/react/基础学习',
+				collapsed: true,
+				items: [
+					{text: '基础学习', link: '/react/基础学习'},
+					{text: '高阶组件', link: '/react/高阶组件'}
+				]
+			},
+			{
 				text: "网络协议",
 				link: '/',
 				collapsed: true,
